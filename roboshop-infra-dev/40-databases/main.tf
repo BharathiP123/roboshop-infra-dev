@@ -13,7 +13,7 @@ resource "aws_instance" "mongodb" {
 }
 
 ###null resource in terraform will nt create a ny resource but its used as terraform data .check "
-resource "terraform_data" "bootstrap" {
+resource "terraform_data" "mongodb" {
   triggers_replace = [aws_instance.mongodb.id]
   
 
