@@ -46,7 +46,7 @@ connection {
 resource "aws_instance" "redis" {
     ami = local.ami_id
     instance_type = "t3.micro"
-    vpc_security_group_ids = [local.reddis_sg_id.id]
+    vpc_security_group_ids = [local.reddis_sg_id]
     subnet_id = local.databse_subnet_id
     
     tags = merge (
