@@ -27,7 +27,7 @@ connection {
   }
 
   provisioner "file" {
-   source = bootstrap.sh 
+   source = "bootstrap.sh" 
    destination = "/tmp/bootstrap.sh"
     
   }
