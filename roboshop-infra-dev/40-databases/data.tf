@@ -1,0 +1,25 @@
+data "aws_ami" "myami"{
+    owners = ["973714476881"]
+    most_recent      = true
+    filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+    }
+    filter {
+    name = "root-device-type"
+    values = ["ebs"]
+    }
+    filter {
+    name = "name"
+    values = ["RHEL-9-DevOps-Practice"]
+    }
+
+}
+
+data "aws_ssm_parameter" "mongodb_sg_id" {
+  name = "/${var.project_name}/${var.environment}/mongodb_sg_id"
+}
+
+data "aws_ssm_parameter" "database_subnet_ids" {
+  name = "/${var.project_name}/${var.environment}/database_sub_ids"
+}
