@@ -1,24 +1,32 @@
 #!/bin/bash
+
 component=$1
 environment=$2
-#environment=$2
 dnf install ansible -y
-#ansible-pull -U https://github.com/BharathiP123/-ansible-roboshop-roles-tf.git -e component=$component main.yaml
-Repo_url=https://github.com/BharathiP123/-ansible-roboshop-roles-tf.git
-Ansible_dir=/opt/robosho/ansible
-ansible-project=ansible-roboshop-roles-tf
-ansible_logs=/var/log/roboshop
-mkdir -p $Ansible_dir
-mkdir -p $ansible_logs
+#ansible-pull -U https://github.com/daws-86s/ansible-roboshop-roles-tf.git -e component=$component main.yaml
+# git clone ansible-playbook
+# cd ansible-playbook
+# ansible-playbook -i inventory main.yaml
+
+REPO_URL=https://github.com/BharathiP123/ansible-roboshop-roles-tf.git
+REPO_DIR=/opt/roboshop/ansible
+ANSIBLE_DIR=ansible-roboshop-roles-tf
+
+mkdir -p $REPO_DIR
+mkdir -p /var/log/roboshop/
 touch ansible.log
-##if ansible_dir exist then pull the code
-if [ -d "$Ansible_dir"]; then
-    cd $Ansible_dir
-    git pull 
+
+cd $REPO_DIR
+
+# check if ansible repo is already cloned or not
+
+if [ -d $ANSIBLE_DIR ]; then
+
+    cd $ANSIBLE_DIR
+    git pull
 else
-    git clone $Repo_url
-    cd $Ansible_dir
+    git clone $REPO_URL
+    cd $ANSIBLE_DIR
 fi
 
-##anisnle playbook run
-ansible-playbook -e componet=$1   main.yaml 
+ansible-playbook -e component=$component -e env=$environment main.yaml
