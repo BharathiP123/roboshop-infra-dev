@@ -12,7 +12,7 @@ mkdir -p $Ansible_dir
 mkdir -p $ansible_logs
 touch ansible.log
 ##if ansible_dir exist then pull the code
-if [-d $Ansible_dir]; then
+if [ -d "$Ansible_dir"]; then
     cd $Ansible_dir
     git pull 
 else
