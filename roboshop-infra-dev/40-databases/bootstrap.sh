@@ -6,7 +6,7 @@ dnf install ansible -y
 #ansible-pull -U https://github.com/BharathiP123/-ansible-roboshop-roles-tf.git -e component=$component main.yaml
 Repo_url=https://github.com/BharathiP123/-ansible-roboshop-roles-tf.git
 Ansible_dir=/opt/robosho/ansible
-ansible-project=-ansible-roboshop-roles-tf
+ansible-project=ansible-roboshop-roles-tf
 ansible_logs=/var/log/roboshop
 mkdir -p $Ansible_dir
 mkdir -p $ansible_logs
