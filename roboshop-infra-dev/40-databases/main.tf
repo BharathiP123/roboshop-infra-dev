@@ -15,7 +15,7 @@ resource "aws_instance" "mongodb" {
 ##create instance profile 
 resource "aws_iam_instance_profile" "ec2_ssm" {
   name = "ec2-ssm-profile"
-  role = ec2-ssm.name
+  role = ec2-ssm
 }
 
 
