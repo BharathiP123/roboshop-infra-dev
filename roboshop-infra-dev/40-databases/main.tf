@@ -144,7 +144,7 @@ resource "aws_instance" "mysql" {
     instance_type = "t3.micro"
     vpc_security_group_ids = [local.mysql_sg_id]
     subnet_id = local.databse_subnet_id
-    iam_instance_profile = aws_iam_instance_profile.ec2_ssm_profile.name
+    iam_instance_profile = aws_iam_instance_profile.ec2_ssm_mysql.name
     tags = merge (
         local.common_tags,
         {
@@ -154,7 +154,7 @@ resource "aws_instance" "mysql" {
 }
 
 ##create instance profile 
-resource "aws_iam_instance_profile" "ec2_ssm_profile" {
+resource "aws_iam_instance_profile" "ec2_ssm_mysql" {
   name = "ec2-ssm-profile"
   role = "ec2-ssm"
 }
