@@ -189,3 +189,15 @@ connection {
   }
 
 }
+
+resource "aws_route53_record" "mongodb_record" {
+zone_id = var.hosted_zone_id
+name = "mongodb.${var.environment}.${var.domain_name}" # Replace with your domain name
+type = "A"
+ttl = 1
+records = [aws_instance.mongodb.private_ip]# Replace with your desired IP address
+}
+
+
+
+

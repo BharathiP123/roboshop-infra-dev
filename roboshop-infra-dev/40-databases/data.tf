@@ -37,3 +37,9 @@ data "aws_ssm_parameter" "mysql_sg_id" {
   name = "/${var.project_name}/${var.environment}/mysql_sg_id"
 }
 
+
+# data "aws_route53_zone" "zone_id" {
+#   name         = "bpotla.com"
+#   private_zone = false
+# }
+
