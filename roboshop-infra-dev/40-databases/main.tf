@@ -42,7 +42,7 @@ connection {
     inline = [ 
       "chmod +x  /tmp/bootstrap.sh",
       #"sudo sh /tmp/bootstrap.sh"
-      "sudo sh /tmp/bootstrap.sh mongodb dev"
+      "sudo sh /tmp/bootstrap.sh mongodb"
      ]
     
   }
