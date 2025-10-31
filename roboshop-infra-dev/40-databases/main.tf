@@ -155,7 +155,7 @@ resource "aws_instance" "mysql" {
 
 ##create instance profile 
 resource "aws_iam_instance_profile" "ec2_ssm_mysql" {
-  name = "ec2-ssm-profile"
+  name = "ec2-ssm-profile-dev"
   role = "ec2-ssm"
 }
 
