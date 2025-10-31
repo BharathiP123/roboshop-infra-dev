@@ -5,7 +5,6 @@ locals {
     reddis_sg_id = data.aws_ssm_parameter.reddis_sg_id.value
     rabbitmq_sg_id = data.aws_ssm_parameter.reddis_sg_id.value
     mysql_sg_id = data.aws_ssm_parameter.mysql_sg_id.value
-    zone_id = data.aws_route53_zone.zone_id.id
     databse_subnet_id = split("," , data.aws_ssm_parameter.database_subnet_ids.value)[0]
     common_tags = {
         Project = var.project_name
