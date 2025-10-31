@@ -21,4 +21,4 @@ else
 fi
 
 ##anisnle playbook run
-ansible-playbook -e componet=$1  environment=$2 main.yaml 
+ansible-playbook -e componet=$1  -e environment=$2 main.yaml 
