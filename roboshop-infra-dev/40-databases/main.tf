@@ -3,7 +3,7 @@ resource "aws_instance" "mongodb" {
     instance_type = "t3.micro"
     vpc_security_group_ids = [local.mongodb_sg_id]
     subnet_id = local.databse_subnet_id
-    
+    iam_instance_profile = aws_iam_instance_profile.ec2_ssm.name
     tags = merge (
         local.common_tags,
         {
@@ -11,6 +11,13 @@ resource "aws_instance" "mongodb" {
         }
     )
 }
+
+##create instance profile 
+resource "aws_iam_instance_profile" "ec2_ssm" {
+  name = "ec2-ssm-profile"
+  role = aws_iam_role.ec2-ssm.name
+}
+
 
 ###null resource in terraform will nt create a ny resource but its used as terraform data .check "
 resource "terraform_data" "mongodb" {
@@ -35,97 +42,97 @@ connection {
     inline = [ 
       "chmod +x  /tmp/bootstrap.sh",
       #"sudo sh /tmp/bootstrap.sh"
-      "sudo sh /tmp/bootstrap.sh mongodb"
+      "sudo sh /tmp/bootstrap.sh mongodb dev"
      ]
     
   }
 
 }
 
-###redis 
-resource "aws_instance" "redis" {
-    ami = local.ami_id
-    instance_type = "t3.micro"
-    vpc_security_group_ids = [local.reddis_sg_id]
-    subnet_id = local.databse_subnet_id
+# ###redis 
+# resource "aws_instance" "redis" {
+#     ami = local.ami_id
+#     instance_type = "t3.micro"
+#     vpc_security_group_ids = [local.reddis_sg_id]
+#     subnet_id = local.databse_subnet_id
     
-    tags = merge (
-        local.common_tags,
-        {
-            Name = "${local.common_name_suffix}-redis" # roboshop-dev-mongodb
-        }
-    )
-}
+#     tags = merge (
+#         local.common_tags,
+#         {
+#             Name = "${local.common_name_suffix}-redis" # roboshop-dev-mongodb
+#         }
+#     )
+# }
 
-###null resource in terraform will nt create a ny resource but its used as terraform data .check "
-resource "terraform_data" "redisdb" {
-  triggers_replace = [aws_instance.redis.id]
+# ###null resource in terraform will nt create a ny resource but its used as terraform data .check "
+# resource "terraform_data" "redisdb" {
+#   triggers_replace = [aws_instance.redis.id]
   
 
-connection { 
+# connection { 
 
      
-    type     = "ssh"
-    user     = "ec2-user"
-    password = "DevOps321"
-    host     = aws_instance.redis.private_ip
-  }
+#     type     = "ssh"
+#     user     = "ec2-user"
+#     password = "DevOps321"
+#     host     = aws_instance.redis.private_ip
+#   }
 
-  provisioner "file" {
-   source = "bootstrap.sh" 
-   destination = "/tmp/bootstrap.sh"
+#   provisioner "file" {
+#    source = "bootstrap.sh" 
+#    destination = "/tmp/bootstrap.sh"
     
-  }
-  provisioner "remote-exec" {
-    inline = [ 
-      "chmod +x  /tmp/bootstrap.sh",
-      "sudo sh /tmp/bootstrap.sh redis"
-     ]
+#   }
+#   provisioner "remote-exec" {
+#     inline = [ 
+#       "chmod +x  /tmp/bootstrap.sh",
+#       "sudo sh /tmp/bootstrap.sh redis"
+#      ]
     
-  }
+#   }
 
-}
+# }
 
-###redis 
-resource "aws_instance" "rabbitmq" {
-    ami = local.ami_id
-    instance_type = "t3.micro"
-    vpc_security_group_ids = [local.rabbitmq_sg_id]
-    subnet_id = local.databse_subnet_id
+# ###redis 
+# resource "aws_instance" "rabbitmq" {
+#     ami = local.ami_id
+#     instance_type = "t3.micro"
+#     vpc_security_group_ids = [local.rabbitmq_sg_id]
+#     subnet_id = local.databse_subnet_id
     
-    tags = merge (
-        local.common_tags,
-        {
-            Name = "${local.common_name_suffix}-rabbitmq" # roboshop-dev-mongodb
-        }
-    )
-}
+#     tags = merge (
+#         local.common_tags,
+#         {
+#             Name = "${local.common_name_suffix}-rabbitmq" # roboshop-dev-mongodb
+#         }
+#     )
+# }
 
-###null resource in terraform will nt create a ny resource but its used as terraform data .check "
-resource "terraform_data" "rabbitmq" {
-  triggers_replace = [aws_instance.rabbitmq.id]
+# ###null resource in terraform will nt create a ny resource but its used as terraform data .check "
+# resource "terraform_data" "rabbitmq" {
+#   triggers_replace = [aws_instance.rabbitmq.id]
   
 
-connection { 
+# connection { 
 
      
-    type     = "ssh"
-    user     = "ec2-user"
-    password = "DevOps321"
-    host     = aws_instance.rabbitmq.private_ip
-  }
+#     type     = "ssh"
+#     user     = "ec2-user"
+#     password = "DevOps321"
+#     host     = aws_instance.rabbitmq.private_ip
+#   }
 
-  provisioner "file" {
-   source = "bootstrap.sh" 
-   destination = "/tmp/bootstrap.sh"
+#   provisioner "file" {
+#    source = "bootstrap.sh" 
+#    destination = "/tmp/bootstrap.sh"
     
-  }
-  provisioner "remote-exec" {
-    inline = [ 
-      "chmod +x  /tmp/bootstrap.sh",
-      "sudo sh /tmp/bootstrap.sh rabbitmq"
-     ]
+#   }
+#   provisioner "remote-exec" {
+#     inline = [ 
+#       "chmod +x  /tmp/bootstrap.sh",
+#       "sudo sh /tmp/bootstrap.sh rabbitmq"
+#      ]
     
-  }
+#   }
 
-}
+# }
