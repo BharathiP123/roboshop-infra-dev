@@ -35,7 +35,7 @@ connection {
     inline = [ 
       "chmod +x  /tmp/catalogue.sh",
       #"sudo sh /tmp/bootstrap.sh"
-      "sudo sh /tmp/catalogue.sh catalogue"
+      "sudo sh /tmp/catalogue.sh catalogue dev"
      ]
     
   }
