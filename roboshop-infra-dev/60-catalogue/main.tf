@@ -48,3 +48,27 @@ type = "A"
 ttl = 1
 records = [aws_instance.catalogue.private_ip]# Replace with your desired IP address
 }
+
+##ami creation for catalogue instance 
+
+
+
+###stoping the catalogue instance
+
+resource "aws_ec2_instance_state" "stop_instance" {
+  instance_id = aws_instance.catalogue.id
+  state       = "stopped"
+  depends_on = [ terraform_data.catalogue ]
+}
+
+resource "aws_ami_from_instance" "catalogue_ami" {
+  name               = "${local.common_name_suffix}-catalogue-ami"
+  source_instance_id = aws_instance.catalogue.id
+  depends_on = [ aws_ec2_instance_state.stop_instance ]
+  tags = merge (
+        local.common_tags,
+        {
+            Name = "${local.common_name_suffix}-catalogue-ami" # roboshop-dev-mongodb
+        }
+    )
+}
