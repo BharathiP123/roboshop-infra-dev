@@ -19,7 +19,7 @@ resource "aws_lb" "backend_alb" {
 
 ## backend alb listerns 
 
-resource "aws_lb_listener" "front_end" {
+resource "aws_lb_listener" "backend_end" {
   load_balancer_arn = aws_lb.backend_alb.arn
   port              = "80"
   protocol          = "HTTP"
@@ -32,5 +32,19 @@ resource "aws_lb_listener" "front_end" {
       message_body = "Fixed response content"
       status_code  = "200"
     }
+  }
+}
+
+##create route 53 alias for alb 
+
+resource "aws_route53_record" "alb_alias" {
+  zone_id = local.zone_id
+  name    = "*.backend-alb-${var.environment}.${var.domain_name}"
+  type    = "A"
+
+  alias {
+    name                   = aws_lb.backend_alb.dns_name
+    zone_id                = aws_lb.backend_alb.zone_id
+    evaluate_target_health = true
   }
 }
