@@ -62,7 +62,6 @@ resource "aws_ec2_instance_state" "stop_instance" {
 }
 ##ami creation for catalogue instance 
 resource "aws_ami_from_instance" "catalogue_ami" {
-  count = 0  
   name               = "${local.common_name_suffix}-catalogue-ami"
   source_instance_id = aws_instance.catalogue.id
   depends_on = [ aws_ec2_instance_state.stop_instance ]
@@ -72,6 +71,12 @@ resource "aws_ami_from_instance" "catalogue_ami" {
         Name = "${local.common_name_suffix}-catalogue-ami" # roboshop-dev-mongodb
     }
     )
+
+
+  lifecycle {
+    prevent_destroy = true
+    ignore_changes  = all
+  }
 }
 
 ###target group
