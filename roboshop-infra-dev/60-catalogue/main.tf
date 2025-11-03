@@ -72,11 +72,6 @@ resource "aws_ami_from_instance" "catalogue_ami" {
     }
     )
 
-
-  lifecycle {
-    prevent_destroy = true
-    ignore_changes  = all
-  }
 }
 
 ###target group
