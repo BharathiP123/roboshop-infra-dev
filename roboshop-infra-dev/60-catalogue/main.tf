@@ -41,13 +41,13 @@ connection {
   }
 }
 
-resource "aws_route53_record" "catalogue_record" {
-zone_id = local.zone_id
-name = "catalogue-${var.environment}.${var.domain_name}" # Replace with your domain name
-type = "A"
-ttl = 1
-records = [aws_instance.catalogue.private_ip]# Replace with your desired IP address
-}
+# resource "aws_route53_record" "catalogue_record" {
+# zone_id = local.zone_id
+# name = "catalogue-${var.environment}.${var.domain_name}" # Replace with your domain name
+# type = "A"
+# ttl = 1
+# records = [aws_instance.catalogue.private_ip]# Replace with your desired IP address
+# }
 
 
 
