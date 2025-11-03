@@ -48,3 +48,11 @@ resource "aws_route53_record" "alb_alias" {
     evaluate_target_health = true
   }
 }
+
+###ssm parameter to store the alb listern arn 
+
+resource "aws_ssm_parameter" "alb_listener_arn" {
+  name  = "/${var.projectname}/${var.environment}/backend_alb_listener_arn"
+  type  = "String"
+  value = aws_lb_listener.backend_end.arn
+}
