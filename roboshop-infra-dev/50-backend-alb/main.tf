@@ -6,7 +6,7 @@ resource "aws_lb" "backend_alb" {
   load_balancer_type = "application"
   security_groups    = [local.backend_sg_id]
   subnets            = local.private_subnet_id
-  enable_deletion_protection = true
+  enable_deletion_protection = false
 
   tags = merge(
     local.common_tags,

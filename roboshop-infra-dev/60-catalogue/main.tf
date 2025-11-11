@@ -103,7 +103,7 @@ resource "aws_launch_template" "catalogue" {
   image_id = aws_ami_from_instance.catalogue_ami.id
 
   instance_initiated_shutdown_behavior = "terminate"
-
+  update_default_version = true  
 
   instance_type = "t3.micro"
 
@@ -159,7 +159,13 @@ resource "aws_autoscaling_group" "catalogue" {
 
   vpc_zone_identifier       = [local.private_subnet_id]
   target_group_arns = [aws_lb_target_group.catalogue.arn]
-
+  instance_refresh {
+    strategy = "Rolling"
+    preferences {
+      min_healthy_percentage = 50 # atleast 50% of the instances should be up and running
+    }
+    triggers = ["launch_template"]
+  }  
  
 
 
