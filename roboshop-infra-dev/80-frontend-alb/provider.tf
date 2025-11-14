@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
     bucket = "bpotla-remotestate-backend-terraform-state"
-    key    = "roboshop-dev-alb"
+    key    = "roboshop-dev-frontend-alb"
     region = "us-east-1"
   }
 

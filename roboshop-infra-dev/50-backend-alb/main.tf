@@ -1,7 +1,7 @@
 ###This is for load balancer creation ,lister and target groups for roboshop project
 
 resource "aws_lb" "backend_alb" {
-  name               = "${var.projectname}-${var.environment}-alb"
+  name               = "${var.projectname}-${var.environment}-backendalb"
   internal           = true
   load_balancer_type = "application"
   security_groups    = [local.backend_sg_id]
